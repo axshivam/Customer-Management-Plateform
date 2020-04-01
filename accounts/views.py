@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
-from .decorators import unauthenticated_user, allowed_users
+from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
 @unauthenticated_user
@@ -47,8 +47,8 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+@admin_only
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
 def home(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
