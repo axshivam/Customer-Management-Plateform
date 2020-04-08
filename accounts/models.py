@@ -11,10 +11,10 @@ class Customer(models.Model):
 	profile_pic = models.ImageField(default="shiv.jpg",null=True, blank=True)
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
 
-
 	def __str__(self):
+		if self.name == None:
+			return "Error-Customer Name is null"
 		return self.name
-
 
 class Tag(models.Model):
 	name = models.CharField(max_length=200, null=True)
